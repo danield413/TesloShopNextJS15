@@ -1,6 +1,6 @@
 ## Teslo Shop
 
-Primer, corre el servidor de desarrollo:
+Primero, corre el servidor de desarrollo:
 
 ```bash
 npm run dev
