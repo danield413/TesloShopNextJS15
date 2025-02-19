@@ -4,7 +4,6 @@ import { QuantitySelector, Title } from '@/components';
 import { initialData } from '@/seed/seed';
 import Image from 'next/image';
 
-
 const productsInCart = [
   initialData.products[ 0 ],
   initialData.products[ 1 ],
