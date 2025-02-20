@@ -33,8 +33,7 @@ enum Gender {
 model Category {
   id      String    @id @default(uuid())
   name    String    @unique
-  //???
-  Product Product[]
+  Product Product[] //* <-- This was created by Prisma when we added the relation!
 }
 
 model Product {
@@ -60,6 +59,6 @@ model ProductImage {
   id  Int    @id @default(autoincrement())
   url String
 
-  product   Product @relation(fields: [productId], references: [id])
-  productId String
+  product   Product @relation(fields: [productId], references: [id]) //* <-- This is the relation!
+  productId String //* <-- This is the foreign key!
 }
