@@ -1,9 +1,9 @@
 import { getPaginatedProductsWithImages } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
-import { Category } from "@/interfaces";
-import { initialData } from "@/seed/seed";
 import { Gender } from "@prisma/client";
-import { notFound, redirect } from "next/navigation";
+import {  redirect } from "next/navigation";
+
+export const revalidate =  60; // Revalidate every 60 seconds
 
 interface Props {
   params: {
