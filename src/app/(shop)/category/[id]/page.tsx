@@ -16,6 +16,7 @@ export default function CategoryIDPage({ params }: Props) {
 
   const products = seedProducts.filter((product) => product.gender === id);
 
+
   const labels: Record<Category, string> = {
     men: 'para hombres',
     women: 'para mujeres',
@@ -31,7 +32,7 @@ export default function CategoryIDPage({ params }: Props) {
     <>
       <Title title={`Articulos ${ labels[id] }`} subtitle="Todos los productos" className="mb-2" />
 
-      <ProductGrid products={ products } />
+      {/* <ProductGrid products={ products } /> */}
     </>
   );
 }

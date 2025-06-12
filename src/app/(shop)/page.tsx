@@ -1,9 +1,11 @@
+import { getPaginatedProductsWithImages } from "@/actions";
 import { ProductGrid, Title } from "@/components";
-import { initialData } from "@/seed/seed";
 
-export default function Home() {
+export default async function Home() {
 
-  const products = initialData.products;
+  const { products } = await getPaginatedProductsWithImages();
+
+  console.log(products)
 
   return (
     <>
@@ -17,4 +19,4 @@ export default function Home() {
 
     </>
   );
-}
+} 

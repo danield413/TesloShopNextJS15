@@ -47,8 +47,8 @@ model Product {
   tags        String[] @default([])
   gender      Gender
 
-  category     Category       @relation(fields: [categoryId], references: [id])
-  categoryId   String
+  category     Category       @relation(fields: [categoryId], references: [id]) //* <-- This is the relation!
+  categoryId   String //* <-- This is the foreign key!
   
   ProductImage ProductImage[]
 
