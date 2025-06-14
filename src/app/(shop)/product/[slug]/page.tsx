@@ -3,12 +3,41 @@ export const revalidate = 604800; // 7 days
 import { getProductBySlug } from "@/actions";
 import { MobileSlideshow, QuantitySelector, SizeSelector, SlideShow, StockLabel } from "@/components";
 import { titleFont } from "@/config/fonts";
+import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 interface Props {
   params: {
     slug: string;
   }
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = params.slug;
+ 
+  const product = await getProductBySlug(slug);
+
+  if (!product) {
+    return {
+      title: "Product not found",
+      description: "The product you are looking for does not exist.",
+    };
+  }
+  // const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: product.title ?? "Product not found",
+    description: product.description ?? "No description available",
+    openGraph: {
+      title: product.title ?? "Product not found",
+      images: [`/products/${product.images[1]}`],
+      description: product.description ?? "No description available",
+    },
+  }
+
 }
 
 export default async function ProductSlugPage({ params }: Props) {
