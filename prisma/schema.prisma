@@ -30,6 +30,11 @@ enum Gender {
   unisex
 }
 
+enum Role {
+  admin
+  user
+}
+
 model Category {
   id      String    @id @default(uuid())
   name    String    @unique
@@ -62,3 +67,17 @@ model ProductImage {
   product   Product @relation(fields: [productId], references: [id]) //* <-- This is the relation!
   productId String //* <-- This is the foreign key!
 }
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  emailVerified DateTime?
+  password String
+  role Role @default(user)
+  image String?
+}
+
+// When you modify your Prisma schema, run the following command to generate the Prisma Client:
+// npx prisma migrate dev --name <migration-name>
+// This will create a new migration file and update your database schema.
