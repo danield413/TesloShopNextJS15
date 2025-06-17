@@ -1,6 +1,7 @@
 'use server';
  
 import { signIn } from '@/auth.config';
+import { sleep } from '@/utils';
 import { AuthError } from 'next-auth';
  
 // ...
@@ -10,7 +11,15 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
-    await signIn('credentials', formData);
+
+    await signIn('credentials', {
+      ...Object.fromEntries(formData),
+      redirect: false,
+    });
+
+    return 'Success';
+
+
   } catch (error) {
     // if (error instanceof AuthError) {
     //   switch (error.type) {
@@ -21,6 +30,7 @@ export async function authenticate(
     //   }
     // }
     // throw error;
+    console.error('Authentication error:', error);
     return 'CredentialsSignin';
   }
 }

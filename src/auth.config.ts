@@ -2,6 +2,8 @@ import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
+import prisma from "./lib/prisma";
+import bcryptjs from "bcryptjs";
 
 export const authConfig: NextAuthConfig = {
     pages: {
@@ -9,31 +11,37 @@ export const authConfig: NextAuthConfig = {
         newUser: "/auth/new-account",
     },
     providers: [
-        Credentials({
 
-            async authorize(credentials, req) {
-                const parsedCredentials = z
-                    .object({ email: z.string().email(), password: z.string().min(6) })
-                    .safeParse(credentials);
+    Credentials({
+      async authorize(credentials) {
 
-                if (!parsedCredentials.success) return null;
+        const parsedCredentials = z
+          .object({ email: z.string().email(), password: z.string().min(6) })
+          .safeParse(credentials);
 
-                const { email, password } = parsedCredentials.data;
 
-                console.log({
-                    email,
-                    password,
-                })
+          if ( !parsedCredentials.success ) return null;
 
-                // Search the email in the database
-                // If user is found and password matches, return a user object:
-                // return { id: "user-id", name: "User Name", email: email };
-                // Otherwise, return null
+          const { email, password } = parsedCredentials.data;
 
-                return null;
-            },
-        }),
-    ],
+
+          // Buscar el correo
+          const user = await prisma.user.findUnique({ where: { email: email.toLowerCase() } });
+          if ( !user ) return null;
+
+          // Comparar las contraseñas
+          if( !bcryptjs.compareSync( password, user.password ) ) return null;
+
+
+          // Regresar el usuario sin el password
+          const { password: _, ...rest } = user;
+
+          return rest;
+      },
+    }),
+
+
+  ]
 };
 
-export const { signIn, signOut, auth: middleware } = NextAuth(authConfig);
+export const { signIn, signOut, auth } = NextAuth(authConfig);
