@@ -26,3 +26,18 @@ export async function authenticate(
 
   }
 }
+
+
+export const login = async (email: string, password: string) => {
+  
+  try {
+
+    await signIn('credentials', { email, password, redirect: false });
+
+    return { ok: true, message: "Usuario autenticado correctamente" };
+
+  } catch (error) {
+    return { ok: false, message: "Error al autenticar el usuario" };
+  }
+
+}
