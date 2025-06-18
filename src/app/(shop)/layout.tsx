@@ -1,12 +1,20 @@
+import { auth } from "@/auth.config";
 import { Footer, Sidebar, TopMenu } from "@/components";
 
-export default function ShopLayout({ children }: { children: React.ReactNode }) {
+export default async function ShopLayout({ children }: { children: React.ReactNode }) {
+
+  const session = await auth();
+
+  console.log({lyt: session})
+
+
+
   return (
     <div className="min-h-screen">
 
       <TopMenu />
 
-      <Sidebar />
+      <Sidebar userSession={session!} />
 
       <div className="px-0 sm:px-10">
       { children }
