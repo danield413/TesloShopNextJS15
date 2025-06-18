@@ -10,6 +10,31 @@ export const authConfig: NextAuthConfig = {
         signIn: "/auth/login",
         newUser: "/auth/new-account",
     },
+
+    callbacks: {
+      jwt({ token, user }) {
+
+        console.log("JWT callback", { token, user });
+        // Si no hay usuario, regresamos el token tal cual
+        if (!user) return token;
+
+        // Si hay un usuario, guardamos sus datos en el token
+        // Esto se ejecuta cuando el usuario inicia sesión por primera vez
+
+       if (user) {
+          // Si hay un usuario, guardamos sus datos en el token
+          token.data = user;
+        }
+        return token;
+      },
+
+      session({ session, token, user }) {
+        console.log("Session callback", { session, token, user });
+        session.user = token.data as any;
+        return session
+      },
+    },
+
     providers: [
 
     Credentials({

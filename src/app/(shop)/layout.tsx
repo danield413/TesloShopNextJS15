@@ -5,10 +5,6 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
 
   const session = await auth();
 
-  console.log({lyt: session})
-
-
-
   return (
     <div className="min-h-screen">
 
