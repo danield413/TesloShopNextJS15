@@ -5,11 +5,16 @@ import { useUIStore } from "@/store"
 import clsx from "clsx"
 import Link from "next/link"
 import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShareOutline, IoTicketOutline } from "react-icons/io5"
+import { useSession } from "next-auth/react"
 
 export const Sidebar = () => {
 
-  const isSideMenuOpen = useUIStore(state => state.isSideMenuOpen)
-  const closeSideMenu = useUIStore(state => state.closeSideMenu)
+  const isSideMenuOpen = useUIStore(state => state.isSideMenuOpen);
+  const closeSideMenu = useUIStore(state => state.closeSideMenu);
+
+  const { data: session } = useSession();
+
+  console.log("Session: ", session);
 
   return (
     <div>

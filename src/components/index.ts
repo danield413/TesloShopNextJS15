@@ -13,3 +13,4 @@ export * from './ui/pagination/Pagination';
 export * from './product/stock-label/StockLabel';
 export * from './cart/ui/ProductsInCart';
 export * from './cart/ui/OrderSummary';
+export * from '././provider/Provider';
