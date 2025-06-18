@@ -21,16 +21,8 @@ export async function authenticate(
 
 
   } catch (error) {
-    // if (error instanceof AuthError) {
-    //   switch (error.type) {
-    //     case 'CredentialsSignin':
-    //       return 'Invalid credentials.';
-    //     default:
-    //       return 'Something went wrong.';
-    //   }
-    // }
-    // throw error;
-    console.error('Authentication error:', error);
-    return 'CredentialsSignin';
+    
+      return 'CredentialsSignin';
+
   }
 }
