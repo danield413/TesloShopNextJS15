@@ -14,7 +14,7 @@ export const authConfig: NextAuthConfig = {
     callbacks: {
       jwt({ token, user }) {
 
-        console.log("JWT callback", { token, user });
+        // console.log("JWT callback", { token, user });
         // Si no hay usuario, regresamos el token tal cual
         if (!user) return token;
 
@@ -29,7 +29,7 @@ export const authConfig: NextAuthConfig = {
       },
 
       session({ session, token, user }) {
-        console.log("Session callback", { session, token, user });
+        // console.log("Session callback", { session, token, user });
         session.user = token.data as any;
         return session
       },

@@ -7,6 +7,7 @@ async function main() {
 
   //* STEPS TO SEED MY DATABASE
   //*1. Delete all previous data
+  await prisma.userAddress.deleteMany();
   await prisma.country.deleteMany();
 
   await prisma.user.deleteMany();
