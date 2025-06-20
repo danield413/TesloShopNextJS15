@@ -1,8 +1,9 @@
 'use client';
 
 import { Country } from '@/interfaces';
+import { useAddressStore } from '@/store';
 import clsx from 'clsx';
-import Link from 'next/link'
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 
 interface Props {
@@ -23,17 +24,24 @@ type FormInputs = {
 
 export const AddressForm = ({ countries }: Props) => {
 
-    const { handleSubmit, register, formState: { isValid } } = useForm<FormInputs>({
+    const { handleSubmit, register, formState: { isValid }, reset } = useForm<FormInputs>({
         defaultValues: {
             //todo: load from db
         }
     });
 
+    const setAddress = useAddressStore(state => state.setAddress);
+    const storeAddress = useAddressStore(state => state.address);
+
+    useEffect(() => { 
+        if (storeAddress.firstName) { 
+            reset(storeAddress) 
+        } 
+    }, [storeAddress])
+
     const onSubmit = (data: FormInputs) => {
         console.log("Form submitted with data:", data);
-        // Aquí puedes manejar el envío del formulario, por ejemplo, guardando la dirección en la base de datos
-        // o enviándola a un servicio externo.
-        // Si estás usando un estado global o contexto, podrías actualizarlo aquí también.
+        setAddress(data);
     }
 
     return (
@@ -74,8 +82,8 @@ export const AddressForm = ({ countries }: Props) => {
                 <select className="p-2 border rounded-md bg-gray-200" {...register('country', { required: true })}>
                     <option value="">[ Seleccione ]</option>
                     {
-                        countries.map( country => (
-                        <option key={ country.id } value={ country.id }>{ country.name }</option>
+                        countries.map(country => (
+                            <option key={country.id} value={country.id}>{country.name}</option>
                         ))
                     }
                 </select>
@@ -125,7 +133,7 @@ export const AddressForm = ({ countries }: Props) => {
                     // href="/checkout"
                     type="submit"
                     // className="btn-primary flex w-full sm:w-1/2 justify-center "
-                    className={ clsx({
+                    className={clsx({
                         'btn-primary': isValid,
                         'btn-disabled': !isValid,
                     })}
