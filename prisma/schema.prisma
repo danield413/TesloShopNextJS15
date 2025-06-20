@@ -78,6 +78,11 @@ model User {
   image String?
 }
 
+model Country {
+  id String @id
+  name String 
+}
+
 // When you modify your Prisma schema, run the following command to generate the Prisma Client:
 // npx prisma migrate dev --name <migration-name>
 // This will create a new migration file and update your database schema.
