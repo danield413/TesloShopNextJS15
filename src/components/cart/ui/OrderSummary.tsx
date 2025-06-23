@@ -9,9 +9,10 @@ export const OrderSummary = () => {
 
     const [loaded, setLoaded] = useState(false);
 
-
-    const { getSummaryInformation } = useCartStore(); // Zustand  
-    const { itemsInCart, subtotal, tax, total } = getSummaryInformation();
+    const itemsInCart = useCartStore((state) => state.itemsInCart);
+    const subtotal = useCartStore((state) => state.subtotal);
+    const tax = useCartStore((state) => state.tax);
+    const total = useCartStore((state) => state.total);
 
 
     useEffect(() => {
@@ -28,13 +29,13 @@ export const OrderSummary = () => {
             <span className="text-right">{itemsInCart} artículos</span>
 
             <span>Subtotal</span>
-            <span className="text-right">{ currencyFormat(subtotal) }</span>
+            <span className="text-right">{currencyFormat(subtotal)}</span>
 
             <span>Impuestos (15%)</span>
             <span className="text-right">$ {tax}</span>
 
             <span className="mt-5 text-2xl">Total:</span>
-            <span className="mt-5 text-2xl text-right">{ currencyFormat(total) }</span>
+            <span className="mt-5 text-2xl text-right">{currencyFormat(total)}</span>
         </div>
     )
 }

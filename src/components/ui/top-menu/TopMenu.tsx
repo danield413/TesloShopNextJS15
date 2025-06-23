@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { titleFont } from "@/config/fonts";
 import { useCartStore, useUIStore } from "@/store";
@@ -12,8 +12,7 @@ export const TopMenu = () => {
 
   const openSideMenu = useUIStore(state => state.openSideMenu)
 
-  const { getSummaryInformation } = useCartStore();
-  const { itemsInCart } = getSummaryInformation();
+  const itemsInCart = useCartStore((state) => state.itemsInCart);
 
   useEffect(() => {
     setLoaded(true);
@@ -62,6 +61,7 @@ export const TopMenu = () => {
             "/empty" : "/cart"} className="mx-2">
           <div className="relative">
             <span className="fade-in absolute text-xs rounded-full px-1 font-bold -top-2 bg-blue-700 text-white -right-2">
+              {/* {itemsInCart} */}
               {itemsInCart}
             </span>
             <IoCartOutline className="w-5 h-5" />
