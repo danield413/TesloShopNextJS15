@@ -20,6 +20,7 @@ export const PlaceOrder = () => {
     const subtotal = useCartStore((state) => state.subtotal);
     const tax = useCartStore((state) => state.tax);
     const total = useCartStore((state) => state.total);
+    const cart = useCartStore((state) => state.cart);
 
     useEffect(() => {
         setLoaded(true);
@@ -30,11 +31,15 @@ export const PlaceOrder = () => {
         setIsPlacingOrder(true);
         // await sleep(2);
 
-        // const productsToOrder = cart.map( product => ({
-        //   productId: product.id,
-        //   quantity: product.quantity,
-        //   size: product.size,
-        // }))
+        console.log({ address })
+
+        const productsToOrder = cart.map( product => ({
+          productId: product.id,
+          quantity: product.quantity,
+          size: product.size,
+        }))
+
+        console.log({ productsToOrder });
 
 
         //! Server Action

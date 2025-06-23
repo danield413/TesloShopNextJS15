@@ -24,6 +24,7 @@ type FormInputs = {
     country: string,
     phone: string,
     rememberAddress: boolean,
+    userId?: string,
 }
 
 export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
@@ -54,13 +55,14 @@ export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
     }, [storeAddress])
 
     const onSubmit = async (data: FormInputs) => {
-        setAddress(data);
 
-        if ( data.rememberAddress ) {
+        const { rememberAddress, userId, ...restAddress } = data;
+        console.log("Rest Address:", restAddress);
+        setAddress(restAddress);
 
+        if ( rememberAddress ) {
             const { rememberAddress, ...restAddress } = data;
             await setUserAddress( restAddress, session!.user.id );
-            
         } else {
             await deleteUserAddress(session!.user.id);
         }
