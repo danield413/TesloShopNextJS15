@@ -62,7 +62,9 @@ export const TopMenu = () => {
           <div className="relative">
             <span className="fade-in absolute text-xs rounded-full px-1 font-bold -top-2 bg-blue-700 text-white -right-2">
               {/* {itemsInCart} */}
-              {itemsInCart}
+              {
+                (itemsInCart) > 1 && itemsInCart
+              }
             </span>
             <IoCartOutline className="w-5 h-5" />
           </div>

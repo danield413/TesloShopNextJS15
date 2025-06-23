@@ -7,6 +7,7 @@ import clsx from 'clsx';
 // import { placeOrder } from '@/actions';
 import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from '@/utils';
+import { placeOrder } from "@/actions";
 
 export const PlaceOrder = () => {
 
@@ -21,6 +22,7 @@ export const PlaceOrder = () => {
     const tax = useCartStore((state) => state.tax);
     const total = useCartStore((state) => state.total);
     const cart = useCartStore((state) => state.cart);
+    const clearCart = useCartStore((state) => state.clearCart);
 
     useEffect(() => {
         setLoaded(true);
@@ -43,16 +45,17 @@ export const PlaceOrder = () => {
 
 
         //! Server Action
-        // const resp = await placeOrder( productsToOrder, address);
-        // if ( !resp.ok ) {
-        //   setIsPlacingOrder(false);
-        //   setErrorMessage(resp.message);
-        //   return;
-        // }
+        const resp = await placeOrder( productsToOrder, address);
+        console.log(resp)
+        if ( !resp.ok ) {
+          setIsPlacingOrder(false);
+          setErrorMessage(resp.message);
+          return;
+        }
 
         //* Todo salio bien!
-        // clearCart();
-        // router.replace('/orders/' + resp.order?.id );
+        clearCart();
+        router.replace('/orders/' + resp.order!.id );
 
 
     }
