@@ -37,7 +37,7 @@ Asegúrate de tener instalado lo siguiente en tu sistema:
 ### **2. Clonar el Repositorio**
 
 ```bash
-git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
+git clone https://github.com/danield413/TesloShopNextJS15.git
 cd tu-repositorio
 ```
 
