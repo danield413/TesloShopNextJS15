@@ -15,3 +15,4 @@ export * from './cart/ui/ProductsInCart';
 export * from './cart/ui/OrderSummary';
 export * from '././provider/Provider';
 export * from './paypal/PaypalButton';
+export * from './orders/OrderStatus';
